@@ -3,16 +3,19 @@ using System;
 using DondeComemos.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DondeComemos.Migrations
+namespace DondeComemos.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251011181631_AjustesTypesAutomaticos")]
+    partial class AjustesTypesAutomaticos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
@@ -175,7 +178,7 @@ namespace DondeComemos.Migrations
                     b.Property<decimal?>("CalidadComida")
                         .HasColumnType("decimal(3,2)");
 
-                    b.Property<double>("Calificacion")
+                    b.Property<decimal>("Calificacion")
                         .HasColumnType("decimal(3,2)");
 
                     b.Property<string>("Comentario")
@@ -257,7 +260,7 @@ namespace DondeComemos.Migrations
                     b.Property<string>("RangoPrecios")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Rating")
+                    b.Property<decimal>("Rating")
                         .HasColumnType("decimal(3,2)");
 
                     b.Property<string>("SitioWeb")

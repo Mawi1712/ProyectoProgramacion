@@ -33,6 +33,8 @@ builder.Services.AddRazorPages();
 // Registrar servicios
 builder.Services.AddScoped<IHomeService, HomeService>();
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IPdfService, PdfService>();
 
 var app = builder.Build();
 

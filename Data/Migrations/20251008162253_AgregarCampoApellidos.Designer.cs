@@ -3,16 +3,19 @@ using System;
 using DondeComemos.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DondeComemos.Migrations
+namespace DondeComemos.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251008162253_AgregarCampoApellidos")]
+    partial class AgregarCampoApellidos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
@@ -50,58 +53,10 @@ namespace DondeComemos.Migrations
                     b.ToTable("Contactos");
                 });
 
-            modelBuilder.Entity("DondeComemos.Models.Notificacion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("FechaLeida")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("Leida")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Mensaje")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Tipo")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Titulo")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Notificaciones");
-                });
-
             modelBuilder.Entity("DondeComemos.Models.Producto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Alergenos")
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("Calorias")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Categoria")
@@ -115,42 +70,17 @@ namespace DondeComemos.Migrations
                     b.Property<bool>("Disponible")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("EsVegano")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("EsVegetariano")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("ImagenUrl")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Ingredientes")
-                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Orden")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("Picante")
-                        .HasColumnType("INTEGER");
-
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(10,2)");
 
-                    b.Property<bool>("RecomendacionChef")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("RestauranteId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("SinGluten")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("TiempoPreparacion")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -158,60 +88,6 @@ namespace DondeComemos.Migrations
                     b.HasIndex("RestauranteId");
 
                     b.ToTable("Productos");
-                });
-
-            modelBuilder.Entity("DondeComemos.Models.Resena", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<decimal?>("Ambiente")
-                        .HasColumnType("decimal(3,2)");
-
-                    b.Property<bool>("Aprobado")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<decimal?>("CalidadComida")
-                        .HasColumnType("decimal(3,2)");
-
-                    b.Property<double>("Calificacion")
-                        .HasColumnType("decimal(3,2)");
-
-                    b.Property<string>("Comentario")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal?>("RelacionPrecio")
-                        .HasColumnType("decimal(3,2)");
-
-                    b.Property<int>("RestauranteId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<decimal?>("Servicio")
-                        .HasColumnType("decimal(3,2)");
-
-                    b.Property<string>("Titulo")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("Verificado")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RestauranteId");
-
-                    b.ToTable("Resenas");
                 });
 
             modelBuilder.Entity("DondeComemos.Models.Restaurante", b =>
@@ -224,14 +100,8 @@ namespace DondeComemos.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("Destacado")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Direccion")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Facebook")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Horario")
@@ -239,9 +109,6 @@ namespace DondeComemos.Migrations
 
                     b.Property<string>("ImagenUrl")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Instagram")
                         .HasColumnType("TEXT");
 
                     b.Property<double?>("Latitud")
@@ -257,19 +124,13 @@ namespace DondeComemos.Migrations
                     b.Property<string>("RangoPrecios")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Rating")
-                        .HasColumnType("decimal(3,2)");
-
-                    b.Property<string>("SitioWeb")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Rating")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Telefono")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TipoCocina")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Twitter")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -569,17 +430,6 @@ namespace DondeComemos.Migrations
                     b.Navigation("Restaurante");
                 });
 
-            modelBuilder.Entity("DondeComemos.Models.Resena", b =>
-                {
-                    b.HasOne("DondeComemos.Models.Restaurante", "Restaurante")
-                        .WithMany("Resenas")
-                        .HasForeignKey("RestauranteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Restaurante");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -634,8 +484,6 @@ namespace DondeComemos.Migrations
             modelBuilder.Entity("DondeComemos.Models.Restaurante", b =>
                 {
                     b.Navigation("Productos");
-
-                    b.Navigation("Resenas");
                 });
 #pragma warning restore 612, 618
         }

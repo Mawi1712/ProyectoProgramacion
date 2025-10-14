@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using DondeComemos.Data;
 using DondeComemos.Models;
 using DondeComemos.Services;
+using System.Text;
 
 namespace DondeComemos.Controllers
 {
@@ -11,11 +12,16 @@ namespace DondeComemos.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IFileService _fileService;
+        private readonly IPdfService _pdfService;
 
-        public RestaurantesController(ApplicationDbContext context, IFileService fileService)
+        public RestaurantesController(
+            ApplicationDbContext context, 
+            IFileService fileService,
+            IPdfService pdfService)
         {
             _context = context;
             _fileService = fileService;
+            _pdfService = pdfService;
         }
 
         // --- Vistas públicas (Clientes) ---
@@ -51,6 +57,7 @@ namespace DondeComemos.Controllers
         {
             var restaurante = await _context.Restaurantes
                 .Include(r => r.Productos.Where(p => p.Disponible))
+                .Include(r => r.Resenas)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
             if (restaurante == null)
@@ -59,7 +66,21 @@ namespace DondeComemos.Controllers
             return View(restaurante);
         }
 
-        // --- CRUD (solo Admin) ---
+        [AllowAnonymous]
+        public async Task<IActionResult> ExportarMenuPdf(int id)
+        {
+            var restaurante = await _context.Restaurantes
+                .Include(r => r.Productos.Where(p => p.Disponible))
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            if (restaurante == null)
+                return NotFound();
+
+            var html = _pdfService.GenerarMenuHtml(restaurante, restaurante.Productos.ToList());
+            
+            return Content(html, "text/html", Encoding.UTF8);
+        }
+
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
@@ -186,6 +207,7 @@ namespace DondeComemos.Controllers
             {
                 var restaurante = await _context.Restaurantes
                     .Include(r => r.Productos)
+                    .Include(r => r.Resenas)
                     .FirstOrDefaultAsync(r => r.Id == id);
                 
                 if (restaurante != null)

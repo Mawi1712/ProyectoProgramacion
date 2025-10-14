@@ -1,279 +1,186 @@
-# 🚀 INSTRUCCIONES COMPLETAS DE IMPLEMENTACIÓN - DondeComemos
+# 🚀 NUEVAS FUNCIONALIDADES - DONDECOMEMOS
 
-## 📋 LISTA DE VERIFICACIÓN ANTES DE EMPEZAR
+## 📋 RESUMEN DE MEJORAS IMPLEMENTADAS
 
-- [ ] Visual Studio Code o Visual Studio instalado
-- [ ] .NET 9.0 SDK instalado
-- [ ] SQLite instalado
-- [ ] Git instalado (opcional)
+### ✅ 1. Sistema de Reseñas y Comentarios
+- Los usuarios pueden dejar reseñas con calificaciones detalladas
+- Calificación general + 4 categorías (Comida, Servicio, Ambiente, Precio)
+- Las reseñas se muestran en la página de detalles del restaurante
+- Solo una reseña por usuario por restaurante
 
----
+### ✅ 2. Rating Decimal (Calificaciones más precisas)
+- Cambio de calificaciones enteras (1-5) a decimales (0.5-5.0)
+- Mayor precisión: 3.5, 4.7, etc.
+- Cálculo automático del promedio basado en reseñas
 
-## 🔧 PASO 1: ACTUALIZAR MODELOS
+### ✅ 3. Notificaciones por Email
+- Email de bienvenida al registrarse
+- Notificación cuando se publica una reseña
+- Sistema configurable de notificaciones
+- Servicio de email con plantillas HTML profesionales
 
-### 1.1 Actualizar UserProfile.cs
+### ✅ 4. Panel de Estadísticas para Admin
+- Dashboard con métricas clave
+- Gráficos interactivos (Chart.js)
+- Top restaurantes, productos por categoría
+- Historial de reseñas y actividad de usuarios
 
-**Ubicación:** `Models/UserProfile.cs`
+### ✅ 5. Exportar Menú a PDF
+- Generar menú en formato PDF/HTML
+- Diseño profesional con logo y estilos
+- Descarga directa desde detalles del restaurante
+- Incluye categorías, precios y descripciones
 
-**Acción:** REEMPLAZAR completamente el archivo con el código del artifact `profile_model`
+### ✅ 6. Integración con Redes Sociales
+- Links a Facebook, Instagram, Twitter del restaurante
+- Botones de compartir restaurantes
+- Compartir en WhatsApp, Facebook, Twitter
+- Copiar enlace directo
 
----
+### ✅ 7. Carrusel de Mejores Restaurantes en Home
+- Carrusel automático con 10 mejores restaurantes
+- Imágenes a pantalla completa
+- Al hover muestra descripción y rating
+- Click para ir a detalles
 
-## 🎮 PASO 2: ACTUALIZAR CONTROLADORES EXISTENTES
+### ✅ 8. Página de Configuración Mejorada
+- Gestión de notificaciones
+- Privacidad y preferencias
+- Exportar datos personales
+- Eliminar cuenta
+- Configuración de idioma y región
+- Gestión de sesiones activas
 
-### 2.1 Actualizar RestaurantesController.cs
+### ✅ 9. Vista de Detalles de Restaurante Mejorada
+- Diseño elegante tipo revista gastronómica
+- Hero con imagen de fondo
+- Menú organizado por categorías con cards
+- Productos con badges (Vegetariano, Vegano, Sin Gluten, Picante)
+- Sección de reseñas integrada
+- Botones de compartir en redes sociales
+- Mapa de ubicación integrado
 
-**Ubicación:** `Controllers/RestaurantesController.cs`
-
-**Acción:** REEMPLAZAR completamente con el artifact `restaurantes_controller_fixed`
-
-### 2.2 Actualizar ProfileController.cs
-
-**Ubicación:** `Controllers/ProfileController.cs`
-
-**Acción:** REEMPLAZAR completamente con el artifact `profile_controller_improved`
-
----
-
-## ➕ PASO 3: CREAR NUEVOS CONTROLADORES
-
-### 3.1 Crear ProductosController.cs
-
-**Ubicación:** `Controllers/ProductosController.cs` (NUEVO ARCHIVO)
-
-**Acción:** CREAR archivo nuevo con el artifact `productos_controller`
-
-### 3.2 Crear ApiController.cs
-
-**Ubicación:** `Controllers/ApiController.cs` (NUEVO ARCHIVO)
-
-**Acción:** CREAR archivo nuevo con el artifact `api_controller`
-
----
-
-## 🖼️ PASO 4: ACTUALIZAR VISTAS DE HOME
-
-### 4.1 Actualizar _Hero.cshtml
-
-**Ubicación:** `Views/Home/Partials/_Hero.cshtml`
-
-**Acción:** REEMPLAZAR con el artifact `hero_fixed`
-
-### 4.2 Actualizar _Mapa.cshtml
-
-**Ubicación:** `Views/Home/Partials/_Mapa.cshtml`
-
-**Acción:** REEMPLAZAR con el artifact `mapa_fixed`
-
-### 4.3 Actualizar _CTA.cshtml
-
-**Ubicación:** `Views/Home/Partials/_CTA.cshtml`
-
-**Acción:** REEMPLAZAR con el artifact `cta_fixed`
-
-### 4.4 Actualizar Index.cshtml de Home
-
-**Ubicación:** `Views/Home/Index.cshtml`
-
-**Acción:** REEMPLAZAR con el artifact `home_index_improved`
+### ✅ 10. Gestión Avanzada de Productos
+- Precio decimal (Ej: 15.50)
+- Subir imagen desde archivo O URL externa
+- Campos adicionales:
+  - Ingredientes
+  - Alérgenos
+  - Calorías
+  - Tiempo de preparación
+  - Badges: Vegetariano, Vegano, Sin Gluten, Picante
+  - Recomendación del Chef
+  - Orden de aparición
+- Vista previa de imagen al subir
 
 ---
 
-## 🍽️ PASO 5: ACTUALIZAR VISTAS DE RESTAURANTES
+## 🗂️ NUEVOS ARCHIVOS CREADOS
 
-### 5.1 Actualizar Create.cshtml
+### Modelos:
+1. `Models/Resena.cs` - Modelo de reseñas
+2. `Models/Notificacion.cs` - Modelo de notificaciones
+3. `Models/Restaurante.cs` - Actualizado con rating decimal y redes sociales
+4. `Models/Producto.cs` - Actualizado con campos adicionales
 
-**Ubicación:** `Views/Restaurantes/Create.cshtml`
+### Controladores:
+1. `Controllers/ResenasController.cs` - Gestión de reseñas
+2. `Controllers/EstadisticasController.cs` - Panel de estadísticas
+3. `Controllers/RestaurantesController.cs` - Actualizado con exportación PDF
+4. `Controllers/ProductosController.cs` - Actualizado con URL externa
 
-**Acción:** REEMPLAZAR con el artifact `restaurante_create_maps`
+### Servicios:
+1. `Services/EmailService.cs` - Servicio de envío de emails
+2. `Services/PdfService.cs` - Generación de PDFs
 
-### 5.2 Actualizar Edit.cshtml
+### Vistas:
+1. `Views/Restaurantes/Details.cshtml` - Completamente rediseñada
+2. `Views/Productos/Create.cshtml` - Mejorada con más campos
+3. `Views/Productos/Edit.cshtml` - Similar a Create
+4. `Views/Home/Index.cshtml` - Con carrusel de mejores restaurantes
+5. `Views/Estadisticas/Index.cshtml` - Panel de admin
+6. `Views/Account/Configuracion.cshtml` - Página de configuración
 
-**Ubicación:** `Views/Restaurantes/Edit.cshtml`
-
-**Acción:** REEMPLAZAR con el artifact `restaurante_edit_maps`
-
-### 5.3 Actualizar Details.cshtml
-
-**Ubicación:** `Views/Restaurantes/Details.cshtml`
-
-**Acción:** REEMPLAZAR con el artifact `restaurante_details`
-
-### 5.4 Actualizar Delete.cshtml
-
-**Ubicación:** `Views/Restaurantes/Delete.cshtml`
-
-**Acción:** REEMPLAZAR con el artifact `restaurante_delete_fixed`
-
----
-
-## 📦 PASO 6: CREAR VISTAS DE PRODUCTOS
-
-### 6.1 Crear carpeta Productos
-
-**Acción:** Crear la carpeta `Views/Productos/`
-
-### 6.2 Crear Create.cshtml
-
-**Ubicación:** `Views/Productos/Create.cshtml` (NUEVO ARCHIVO)
-
-**Acción:** CREAR con el artifact `producto_create`
-
-### 6.3 Crear Edit.cshtml
-
-**Ubicación:** `Views/Productos/Edit.cshtml` (NUEVO ARCHIVO)
-
-**Acción:** CREAR con el artifact `producto_edit`
-
-### 6.4 Crear Delete.cshtml
-
-**Ubicación:** `Views/Productos/Delete.cshtml` (NUEVO ARCHIVO)
-
-**Acción:** CREAR con el artifact `producto_delete`
-
-### 6.5 Crear Index.cshtml
-
-**Ubicación:** `Views/Productos/Index.cshtml` (NUEVO ARCHIVO)
-
-**Acción:** CREAR con el artifact `producto_index`
+### Configuración:
+1. `Program.cs` - Actualizado con nuevos servicios
+2. `appsettings.json` - Con configuración de email
+3. `Data/ApplicationDbContext.cs` - Con nuevas tablas
 
 ---
 
-## 👤 PASO 7: ACTUALIZAR VISTA DE PERFIL
+## 🔧 PASOS DE IMPLEMENTACIÓN
 
-### 7.1 Actualizar Profile/Index.cshtml
-
-**Ubicación:** `Views/Profile/Index.cshtml`
-
-**Acción:** REEMPLAZAR completamente con el artifact `profile_index_complete`
-
----
-
-## ⚙️ PASO 8: ACTUALIZAR CONFIGURACIÓN
-
-### 8.1 Actualizar appsettings.json
-
-**Ubicación:** `appsettings.json`
-
-**Acción:** REEMPLAZAR con el artifact `appsettings_updated`
-
----
-
-## 🗄️ PASO 9: EJECUTAR MIGRACIONES
-
-Abre una terminal en la carpeta del proyecto y ejecuta:
+### PASO 1: Copiar Archivos Nuevos
 
 ```bash
-# Crear nueva migración
-dotnet ef migrations add ActualizarModelos
+# Copiar todos los modelos nuevos
+Models/Resena.cs
+Models/Notificacion.cs
 
-# Aplicar migración a la base de datos
-dotnet ef database update
+# Copiar controladores nuevos
+Controllers/ResenasController.cs
+Controllers/EstadisticasController.cs
+
+# Copiar servicios nuevos
+Services/EmailService.cs
+Services/PdfService.cs
+
+# Crear carpeta de vistas
+mkdir Views/Estadisticas
+mkdir Views/Account
 ```
 
-**Si tienes errores con dotnet ef:**
+### PASO 2: Actualizar Archivos Existentes
 
-```bash
-# Instalar herramienta EF Core
-dotnet tool install --global dotnet-ef
+Reemplazar completamente:
+- `Models/Restaurante.cs`
+- `Models/Producto.cs`
+- `Data/ApplicationDbContext.cs`
+- `Controllers/RestaurantesController.cs`
+- `Controllers/ProductosController.cs`
+- `Program.cs`
+- `appsettings.json`
+- `Views/Shared/_Layout.cshtml`
+- `Views/Home/Index.cshtml`
+- `Views/Restaurantes/Details.cshtml`
+- `Views/Productos/Create.cshtml`
 
-# Intentar nuevamente
-dotnet ef migrations add ActualizarModelos
-dotnet ef database update
-```
+### PASO 3: Configurar Email
 
----
-
-## 📁 PASO 10: CREAR CARPETAS PARA IMÁGENES
-
-En la terminal, dentro de la carpeta del proyecto:
-
-**Windows (PowerShell):**
-```powershell
-New-Item -Path "wwwroot/uploads" -ItemType Directory -Force
-New-Item -Path "wwwroot/uploads/restaurantes" -ItemType Directory -Force
-New-Item -Path "wwwroot/uploads/productos" -ItemType Directory -Force
-New-Item -Path "wwwroot/uploads/perfiles" -ItemType Directory -Force
-```
-
-**Linux/Mac:**
-```bash
-mkdir -p wwwroot/uploads/restaurantes
-mkdir -p wwwroot/uploads/productos
-mkdir -p wwwroot/uploads/perfiles
-```
-
----
-
-## 🗺️ PASO 11: OBTENER API KEY DE GOOGLE MAPS
-
-### 11.1 Ir a Google Cloud Console
-
-1. Ve a: https://console.cloud.google.com/
-2. Inicia sesión con tu cuenta de Google
-
-### 11.2 Crear Proyecto
-
-1. Haz clic en "Seleccionar proyecto" (arriba)
-2. Clic en "NUEVO PROYECTO"
-3. Nombre: "DondeComemos"
-4. Clic en "CREAR"
-
-### 11.3 Habilitar APIs
-
-1. En el menú lateral, ve a "APIs y servicios" > "Biblioteca"
-2. Busca y habilita estas APIs:
-   - **Maps JavaScript API**
-   - **Geocoding API**
-   - **Places API** (opcional)
-
-### 11.4 Crear Credenciales
-
-1. Ve a "APIs y servicios" > "Credenciales"
-2. Clic en "+ CREAR CREDENCIALES"
-3. Selecciona "Clave de API"
-4. Copia la API Key generada
-
-### 11.5 Restringir API Key (IMPORTANTE)
-
-1. Haz clic en tu API Key
-2. En "Restricciones de aplicación", selecciona "Referentes HTTP"
-3. Agrega: `http://localhost:*` y `https://localhost:*`
-4. En "Restricciones de API", selecciona las APIs habilitadas
-5. Guarda
-
-### 11.6 Configurar en el proyecto
-
-**Opción 1: En appsettings.json** (NO recomendado para producción)
+En `appsettings.json`:
 
 ```json
 {
-  "GoogleMaps": {
-    "ApiKey": "TU_API_KEY_AQUI"
+  "Email": {
+    "SmtpServer": "smtp.gmail.com",
+    "SmtpPort": "587",
+    "SmtpUsername": "tu-email@gmail.com",
+    "SmtpPassword": "tu-contraseña-de-aplicacion",
+    "FromEmail": "noreply@dondecomemos.com",
+    "FromName": "DondeComemos"
   }
 }
 ```
 
-**Opción 2: Variables de entorno** (RECOMENDADO)
+**Para Gmail:**
+1. Activa la verificación en 2 pasos
+2. Genera una "Contraseña de aplicación"
+3. Usa esa contraseña en `SmtpPassword`
+
+### PASO 4: Ejecutar Migraciones
 
 ```bash
-# Windows
-$env:GoogleMaps__ApiKey="TU_API_KEY_AQUI"
-
-# Linux/Mac
-export GoogleMaps__ApiKey="TU_API_KEY_AQUI"
+dotnet ef migrations add AgregarResenasYNotificaciones
+dotnet ef database update
 ```
 
-### 11.7 Actualizar las vistas
+### PASO 5: Instalar Chart.js (Ya incluido via CDN)
 
-En TODOS los archivos que contengan:
-```html
-<script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY_AQUI
-```
+Ya está configurado en `Views/Estadisticas/Index.cshtml`
 
-Reemplaza `TU_API_KEY_AQUI` con tu API Key real.
+### PASO 6: Verificar Google Maps API Key
 
-**Archivos a actualizar:**
+Asegúrate de que tu API Key esté configurada en todos los archivos:
 - `Views/Home/Index.cshtml`
 - `Views/Restaurantes/Create.cshtml`
 - `Views/Restaurantes/Edit.cshtml`
@@ -281,155 +188,151 @@ Reemplaza `TU_API_KEY_AQUI` con tu API Key real.
 
 ---
 
-## 🔒 PASO 12: ACTUALIZAR .gitignore
+## 🧪 PRUEBAS
 
-Agrega al final de tu archivo `.gitignore`:
+### 1. Probar Sistema de Reseñas:
+- Registra un usuario
+- Ve a detalles de un restaurante
+- Deja una reseña con calificaciones
+- Verifica que aparezca en la lista
 
-```
-# Imágenes subidas
-/wwwroot/uploads/*
+### 2. Probar Emails:
+- Registra un nuevo usuario (debe recibir email de bienvenida)
+- Deja una reseña (debe recibir notificación)
 
-# API Keys
-appsettings.Production.json
-```
+### 3. Probar Estadísticas:
+- Inicia sesión como admin
+- Ve a "Administrar" > "Estadísticas"
+- Verifica gráficos y métricas
 
----
+### 4. Probar Exportar PDF:
+- Ve a detalles de un restaurante
+- Click en "Exportar Menú"
+- Debe abrir una página con el menú formateado
 
-## ▶️ PASO 13: EJECUTAR LA APLICACIÓN
+### 5. Probar Carrusel:
+- Ve a la página principal
+- Verifica que el carrusel cargue los 10 mejores restaurantes
+- Haz hover para ver descripciones
 
-```bash
-dotnet run
-```
+### 6. Probar Productos Mejorados:
+- Como admin, crea un producto
+- Usa precio decimal (ej: 15.50)
+- Prueba subir imagen desde archivo
+- Prueba usar URL externa
+- Marca badges (Vegetariano, Picante, etc.)
+- Verifica que aparezca correctamente en detalles
 
-O presiona **F5** en Visual Studio / VS Code
-
----
-
-## ✅ PASO 14: VERIFICAR FUNCIONALIDADES
-
-### 14.1 Verificar Home
-- [ ] La página principal carga correctamente
-- [ ] El botón "Iniciar la búsqueda" funciona
-- [ ] El mapa se carga en la página principal
-- [ ] Los marcadores aparecen en el mapa
-
-### 14.2 Verificar Autenticación
-- [ ] El botón de "Iniciar Sesión" se muestra cuando NO estás autenticado
-- [ ] El botón de "Iniciar Sesión" desaparece cuando estás autenticado
-- [ ] Aparece el menú de usuario cuando estás autenticado
-
-### 14.3 Verificar Restaurantes (Admin)
-- [ ] Crear nuevo restaurante con ubicación en mapa
-- [ ] Editar restaurante existente
-- [ ] Eliminar restaurante (debe funcionar sin errores)
-- [ ] Ver detalles de restaurante público
-
-### 14.4 Verificar Productos (Admin)
-- [ ] Agregar productos al menú de un restaurante
-- [ ] Editar productos
-- [ ] Eliminar productos
-- [ ] Ver menú en vista pública
-
-### 14.5 Verificar Perfil de Usuario
-- [ ] Editar información personal
-- [ ] Cambiar foto de perfil
-- [ ] Cambiar contraseña
-- [ ] Ver historial de búsquedas
-- [ ] Agregar/quitar favoritos
-
-### 14.6 Verificar Búsqueda
-- [ ] Buscar restaurantes por nombre
-- [ ] Filtrar por tipo de cocina
-- [ ] Filtrar por calificación
-- [ ] Buscar restaurantes cercanos con GPS
+### 7. Probar Configuración:
+- Ve a tu perfil > Configuración
+- Prueba activar/desactivar notificaciones
+- Prueba exportar datos
+- Prueba limpiar historial
 
 ---
 
-## 🐛 SOLUCIÓN DE PROBLEMAS COMUNES
+## 📊 ESTRUCTURA DE LA BASE DE DATOS
 
-### Error: "No se puede encontrar la tabla Restaurantes"
-**Solución:**
-```bash
-dotnet ef database update
-```
+### Nuevas Tablas:
 
-### Error: "API Key inválida" en Google Maps
-**Solución:**
-1. Verifica que las APIs estén habilitadas
-2. Verifica las restricciones de la API Key
-3. Espera 5 minutos (puede tardar en activarse)
+**Resenas:**
+- Id
+- UserId
+- RestauranteId
+- Titulo
+- Comentario
+- Calificacion (decimal)
+- CalidadComida (decimal)
+- Servicio (decimal)
+- Ambiente (decimal)
+- RelacionPrecio (decimal)
+- FechaCreacion
+- Verificado
+- Aprobado
 
-### Error al subir imágenes
-**Solución:**
-1. Verifica que las carpetas en `wwwroot/uploads/` existan
-2. Verifica permisos de escritura en la carpeta
+**Notificaciones:**
+- Id
+- UserId
+- Titulo
+- Mensaje
+- Tipo
+- Url
+- FechaCreacion
+- Leida
+- FechaLeida
 
-### Error: "No se puede eliminar restaurante"
-**Solución:**
-- Asegúrate de haber actualizado el `RestaurantesController.cs` con el código corregido
+### Tablas Actualizadas:
 
-### La búsqueda no funciona
-**Solución:**
-- Verifica que hayas actualizado `_Hero.cshtml` y `_Mapa.cshtml` con `asp-controller="Restaurantes"`
+**Restaurantes:**
+- Rating ahora es decimal(3,2)
+- Agregados: SitioWeb, Facebook, Instagram, Twitter, Destacado
 
----
-
-## 📊 RESUMEN DE CAMBIOS
-
-### ✅ Funcionalidades Implementadas:
-
-1. **Sistema de Autenticación mejorado**
-   - Botones dinámicos según estado de autenticación
-   - Perfil de usuario completo
-
-2. **Gestión de Restaurantes**
-   - CRUD completo con Google Maps
-   - Ubicación GPS precisa
-   - Eliminación corregida
-
-3. **Gestión de Productos/Menú**
-   - CRUD completo de productos
-   - Categorización
-   - Gestión de disponibilidad
-
-4. **Perfil de Usuario**
-   - Datos personales completos
-   - Historial de búsquedas
-   - Restaurantes favoritos
-   - Cambio de contraseña
-
-5. **Búsqueda Avanzada**
-   - Filtros múltiples
-   - Búsqueda por ubicación GPS
-   - Restaurantes cercanos
-
-6. **Google Maps**
-   - Integración en home
-   - Selección de ubicación en formularios
-   - Vista de ubicación en detalles
+**Productos:**
+- Precio ahora es decimal(10,2)
+- Agregados: Ingredientes, Alergenos, Calorias, TiempoPreparacion
+- Agregados: EsVegetariano, EsVegano, SinGluten, Picante, RecomendacionChef
+- Agregado: Orden
 
 ---
 
-## 📞 SOPORTE
+## 🎨 CARACTERÍSTICAS VISUALES
 
-Si encuentras algún error durante la implementación:
+### Restaurante Details:
+- Hero con imagen de fondo y overlay
+- Rating con estrellas (completas, medias, vacías)
+- Badges para tipo de cocina y rango de precios
+- Cards de productos con hover effects
+- Iconos de redes sociales circulares
+- Formulario de reseña con sliders de calificación
 
-1. Verifica que hayas seguido todos los pasos en orden
-2. Revisa los mensajes de error en la consola
-3. Verifica que todas las migraciones se hayan aplicado
-4. Comparte el mensaje de error específico para ayuda adicional
+### Panel de Estadísticas:
+- Cards coloridas con iconos grandes
+- Gráficos interactivos con Chart.js
+- Tabla de últimas reseñas
+- Métricas en tiempo real
+
+### Carrusel de Home:
+- Transiciones suaves
+- Overlay con gradiente al hover
+- Información completa del restaurante
+- Controles de navegación
 
 ---
 
-## 🎉 ¡LISTO!
+## 🔒 SEGURIDAD
 
-Tu aplicación DondeComemos ahora tiene todas las funcionalidades implementadas.
+- Las reseñas solo pueden ser creadas por usuarios autenticados
+- Un usuario solo puede dejar una reseña por restaurante
+- Solo admin puede eliminar reseñas
+- Solo admin puede ver estadísticas
+- Validación de emails con formato correcto
+- Sanitización de inputs en formularios
 
-**Próximos pasos opcionales:**
-- Agregar sistema de reseñas
-- Implementar reservaciones
-- Agregar más filtros de búsqueda
-- Implementar notificaciones
-- Agregar panel de estadísticas para admin
+---
 
-¡Éxito con tu proyecto! 🚀
+## 📱 RESPONSIVE
+
+Todas las nuevas vistas son completamente responsive:
+- Carrusel se adapta a móviles
+- Estadísticas usan grid responsivo
+- Detalles del restaurante en columnas adaptables
+- Formularios de productos optimizados para móvil
+
+---
+
+## 🚀 PRÓXIMOS PASOS SUGERIDOS
+
+1. Implementar notificaciones en tiempo real (SignalR)
+2. Sistema de reservaciones
+3. Programa de fidelidad/puntos
+4. Cupones y descuentos
+5. Galería de fotos de usuarios
+6. Sistema de respuestas a reseñas (del dueño)
+7. Integración con delivery (Rappi, Uber Eats)
+8. Chat en vivo con restaurantes
+9. Eventos especiales del restaurante
+10. Blog gastronómico
+
+---
+
+¡Todas las funcionalidades están listas para usar! 🎉

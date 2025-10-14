@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using DondeComemos.Data;
 using DondeComemos.Models;
 using DondeComemos.Services;
@@ -43,6 +43,8 @@ namespace DondeComemos.Controllers
 
             var productos = await _context.Productos
                 .Where(p => p.RestauranteId == restauranteId)
+                .OrderBy(p => p.Orden)
+                .ThenBy(p => p.Categoria)
                 .ToListAsync();
 
             ViewBag.RestauranteId = restauranteId;
@@ -64,6 +66,7 @@ namespace DondeComemos.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Manejar imagen: archivo subido o URL externa
                 if (producto.ImagenArchivo != null)
                 {
                     try
@@ -77,6 +80,11 @@ namespace DondeComemos.Controllers
                         ViewBag.RestauranteId = producto.RestauranteId;
                         return View(producto);
                     }
+                }
+                else if (!string.IsNullOrEmpty(producto.ImagenUrlExterna))
+                {
+                    // Usar URL externa
+                    producto.ImagenUrl = producto.ImagenUrlExterna;
                 }
 
                 _context.Add(producto);
@@ -112,11 +120,14 @@ namespace DondeComemos.Controllers
                 var productoExistente = await _context.Productos.AsNoTracking()
                     .FirstOrDefaultAsync(p => p.Id == id);
 
+                // Manejar imagen
                 if (producto.ImagenArchivo != null)
                 {
                     try
                     {
-                        if (!string.IsNullOrEmpty(productoExistente?.ImagenUrl))
+                        // Eliminar imagen anterior si existe y no es URL externa
+                        if (!string.IsNullOrEmpty(productoExistente?.ImagenUrl) && 
+                            !productoExistente.ImagenUrl.StartsWith("http"))
                         {
                             _fileService.DeleteImage(productoExistente.ImagenUrl);
                         }
@@ -130,8 +141,19 @@ namespace DondeComemos.Controllers
                         return View(producto);
                     }
                 }
+                else if (!string.IsNullOrEmpty(producto.ImagenUrlExterna))
+                {
+                    // Usar URL externa
+                    if (!string.IsNullOrEmpty(productoExistente?.ImagenUrl) && 
+                        !productoExistente.ImagenUrl.StartsWith("http"))
+                    {
+                        _fileService.DeleteImage(productoExistente.ImagenUrl);
+                    }
+                    producto.ImagenUrl = producto.ImagenUrlExterna;
+                }
                 else
                 {
+                    // Mantener imagen existente
                     producto.ImagenUrl = productoExistente?.ImagenUrl ?? string.Empty;
                 }
 
@@ -165,7 +187,9 @@ namespace DondeComemos.Controllers
             var producto = await _context.Productos.FindAsync(id);
             if (producto != null)
             {
-                if (!string.IsNullOrEmpty(producto.ImagenUrl))
+                // Eliminar imagen si no es URL externa
+                if (!string.IsNullOrEmpty(producto.ImagenUrl) && 
+                    !producto.ImagenUrl.StartsWith("http"))
                 {
                     _fileService.DeleteImage(producto.ImagenUrl);
                 }

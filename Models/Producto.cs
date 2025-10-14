@@ -31,6 +31,38 @@ namespace DondeComemos.Models
         [Display(Name = "Imagen")]
         public string? ImagenUrl { get; set; }
         
+        [Display(Name = "Ingredientes")]
+        [StringLength(1000)]
+        public string? Ingredientes { get; set; }
+        
+        [Display(Name = "Alérgenos")]
+        [StringLength(500)]
+        public string? Alergenos { get; set; }
+        
+        [Display(Name = "Calorías")]
+        public int? Calorias { get; set; }
+        
+        [Display(Name = "Tiempo de Preparación (min)")]
+        public int? TiempoPreparacion { get; set; }
+        
+        [Display(Name = "Es Vegetariano")]
+        public bool EsVegetariano { get; set; } = false;
+        
+        [Display(Name = "Es Vegano")]
+        public bool EsVegano { get; set; } = false;
+        
+        [Display(Name = "Sin Gluten")]
+        public bool SinGluten { get; set; } = false;
+        
+        [Display(Name = "Picante")]
+        public bool Picante { get; set; } = false;
+        
+        [Display(Name = "Recomendación del Chef")]
+        public bool RecomendacionChef { get; set; } = false;
+        
+        [Display(Name = "Orden")]
+        public int Orden { get; set; } = 0;
+        
         // Foreign Key
         [Required]
         public int RestauranteId { get; set; }
@@ -41,5 +73,9 @@ namespace DondeComemos.Models
         [NotMapped]
         [Display(Name = "Subir Imagen")]
         public IFormFile? ImagenArchivo { get; set; }
+        
+        [NotMapped]
+        [Display(Name = "URL de Imagen Externa")]
+        public string? ImagenUrlExterna { get; set; }
     }
 }

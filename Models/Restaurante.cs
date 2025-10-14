@@ -25,7 +25,8 @@ namespace DondeComemos.Models
         [Required]
         [Range(0, 5, ErrorMessage = "El rating debe estar entre 0 y 5")]
         [Display(Name = "Calificación")]
-        public int Rating { get; set; } = 0;
+        [Column(TypeName = "REAL")] 
+        public double Rating { get; set; }
         
         [Display(Name = "Teléfono")]
         public string? Telefono { get; set; }
@@ -43,13 +44,37 @@ namespace DondeComemos.Models
         public double? Longitud { get; set; }
         
         [Display(Name = "Rango de Precios")]
-        public string? RangoPrecios { get; set; } // "$", "$$", "$$$", "$$$$"
+        public string? RangoPrecios { get; set; }
+        
+        [Display(Name = "Sitio Web")]
+        public string? SitioWeb { get; set; }
+        
+        [Display(Name = "Facebook")]
+        public string? Facebook { get; set; }
+        
+        [Display(Name = "Instagram")]
+        public string? Instagram { get; set; }
+        
+        [Display(Name = "Twitter")]
+        public string? Twitter { get; set; }
+        
+        [Display(Name = "Destacado")]
+        public bool Destacado { get; set; } = false;
         
         // Navigation Properties
         public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
+        public virtual ICollection<Resena> Resenas { get; set; } = new List<Resena>();
         
         [NotMapped]
         [Display(Name = "Subir Imagen")]
         public IFormFile? ImagenArchivo { get; set; }
+        
+        // Propiedades calculadas
+        [NotMapped]
+            public double RatingPromedio => Resenas.Any()
+            ? (double)Resenas.Average(r => r.Calificacion)
+            : Rating;        
+        [NotMapped]
+        public int TotalResenas => Resenas.Count;
     }
 }
